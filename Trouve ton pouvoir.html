@@ -1,0 +1,201 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#faf9f5;color:#141413}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Trouve ton pouvoir</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Fredoka:wght@500;600&family=Nunito:wght@600;800&display=swap">
+<style>/* Concept : une seule scène plein écran, nuit étoilée où les 6 parfums brillent comme des orbes. */
+:root{
+  --night:#17123A; --night-2:#241C5C; --cream:#FFF6E6; --ink:#17123A;
+  --yes:#3DDC97; --no:#FF8FA3;
+  --accent:#FFB02E;
+  --f-display:'Fredoka','Trebuchet MS','Arial Rounded MT Bold',system-ui,sans-serif;
+  --f-body:'Nunito','Trebuchet MS',system-ui,sans-serif;
+  color-scheme:dark;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+html,body{height:100%}
+body{margin:0;background:var(--night);color:var(--cream);font-family:var(--f-body);font-size:20px;overflow:hidden;user-select:none;-webkit-user-select:none;touch-action:manipulation}
+#app{height:100%;position:relative;display:flex;flex-direction:column;padding-inline:max(16px,4vw);padding-block:16px;background:radial-gradient(120% 90% at 20% 0%,var(--night-2),var(--night) 60%)}
+#orbs{position:absolute;inset:0;overflow:hidden;pointer-events:none}
+#orbs i{position:absolute;border-radius:50%;filter:blur(2px);opacity:.28;animation:float 14s ease-in-out infinite}
+@keyframes float{50%{transform:translateY(-26px) scale(1.06)}}
+header.top{position:relative;z-index:2;display:flex;align-items:center;justify-content:space-between;gap:12px;min-height:44px}
+.brand{font-family:var(--f-display);font-weight:600;font-size:1rem;letter-spacing:.08em;text-transform:uppercase;opacity:.85;padding:8px 4px}
+.dots{display:flex;gap:10px}
+.dots b{width:14px;height:14px;border-radius:50%;background:#ffffff30;transition:.3s}
+.dots b.on{background:var(--accent);transform:scale(1.25)}
+.dots b.done{background:var(--cream)}
+main{position:relative;z-index:1;flex:1;min-height:0;display:flex;flex-direction:column;align-items:center;justify-content:center;text-align:center;gap:clamp(16px,3vh,32px)}
+.screen{width:100%;max-width:980px;display:flex;flex-direction:column;align-items:center;gap:clamp(16px,3vh,32px);animation:in .45s ease both}
+@keyframes in{from{opacity:0;transform:translateY(14px)}}
+h1,h2{font-family:var(--f-display);font-weight:600;margin:0;text-wrap:balance;line-height:1.1}
+h1{font-size:clamp(2.4rem,7vw,5rem)}
+h2{font-size:clamp(1.7rem,4.6vw,3.2rem)}
+h1 em{font-style:normal;color:var(--accent)}
+p.lead{margin:0;font-size:clamp(1.1rem,2.4vw,1.6rem);max-width:34ch;text-wrap:balance;opacity:.92}
+.btn{font-family:var(--f-display);font-weight:600;border:0;border-radius:999px;cursor:pointer;color:var(--ink);background:var(--accent);font-size:clamp(1.4rem,3.4vw,2.2rem);padding:.6em 1.8em;min-height:64px;box-shadow:0 8px 0 #0004;transition:transform .12s,box-shadow .12s}
+.btn:active{transform:translateY(6px);box-shadow:0 2px 0 #0004}
+.btn:focus-visible,.flav:focus-visible{outline:4px solid var(--cream);outline-offset:4px}
+.btn.ghost{background:#ffffff1c;color:var(--cream);box-shadow:none;font-size:1.1rem;min-height:48px;padding:.5em 1.4em}
+.yn{display:grid;grid-template-columns:1fr 1fr;gap:clamp(14px,3vw,32px);width:100%}
+.yn .btn{font-size:clamp(2rem,6vw,3.6rem);padding:.9em .4em;min-height:clamp(110px,20vh,190px)}
+.yn .yes{background:var(--yes)} .yn .no{background:var(--no)}
+.flavs{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,2.4vw,26px);width:100%}
+.flav{border:0;cursor:pointer;border-radius:28px;padding:clamp(14px,3vh,28px) 8px;background:var(--c);color:var(--ink);font-family:var(--f-display);font-weight:600;font-size:clamp(1.3rem,3.4vw,2.2rem);display:flex;flex-direction:column;align-items:center;gap:8px;box-shadow:0 8px 0 #0004;transition:transform .12s,box-shadow .12s}
+.flav:active{transform:translateY(6px);box-shadow:0 2px 0 #0004}
+.flav svg{width:clamp(44px,9vw,84px);height:auto}
+.suspense{position:relative;width:min(60vw,320px);aspect-ratio:1}
+.suspense i{position:absolute;inset:0;margin:auto;width:28%;aspect-ratio:1;border-radius:50%;background:var(--c);animation:orbit 1.6s linear infinite;animation-delay:var(--d)}
+@keyframes orbit{from{transform:rotate(0) translateX(105%) scale(1)}50%{transform:rotate(180deg) translateX(60%) scale(.7)}to{transform:rotate(360deg) translateX(105%) scale(1)}}
+.reveal{display:flex;flex-direction:column;align-items:center;gap:clamp(10px,2vh,20px)}
+.emblem{width:clamp(120px,24vh,210px);aspect-ratio:1;border-radius:50%;background:var(--pc);display:grid;place-items:center;box-shadow:0 0 0 14px #ffffff18,0 0 90px var(--pc);animation:pop .8s cubic-bezier(.2,1.5,.4,1) both}
+@keyframes pop{from{transform:scale(.2) rotate(-40deg);opacity:0}}
+.emblem svg{width:60%;height:60%}
+.pname{color:var(--pc)}
+.flavtag{display:inline-flex;align-items:center;gap:10px;background:#ffffff1c;border-radius:999px;padding:.5em 1.2em;font-size:clamp(1rem,2.2vw,1.4rem)}
+.flavtag i{width:22px;height:22px;border-radius:50%;background:var(--pc)}
+.code{font-family:var(--f-display);font-weight:600;letter-spacing:.14em;font-size:clamp(1.6rem,4vw,2.6rem);background:var(--cream);color:var(--ink);border-radius:18px;padding:.25em .8em}
+.small{font-size:clamp(.9rem,1.8vw,1.15rem);opacity:.8;margin:0}
+/* back-office */
+#bo{position:absolute;inset:0;z-index:10;background:var(--night);overflow:auto;padding-inline:max(16px,4vw);padding-block:20px;user-select:text;-webkit-user-select:text;touch-action:auto}
+#bo h2{font-size:1.8rem;text-align:left;margin-bottom:12px}
+#bo h3{font-family:var(--f-display);margin:26px 0 8px;font-size:1.2rem}
+.pin{display:grid;grid-template-columns:repeat(3,76px);gap:10px;justify-content:center;margin-top:20px}
+.pin button{height:64px;border-radius:16px;border:0;font:600 1.5rem var(--f-display);background:#ffffff22;color:var(--cream)}
+.pinshow{text-align:center;font:600 2rem var(--f-display);letter-spacing:.4em;min-height:48px;margin-top:10px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:10px}
+.stat{background:#ffffff14;border-radius:14px;padding:12px 14px;min-width:0}
+.stat b{display:block;font:600 1.8rem var(--f-display);font-variant-numeric:tabular-nums}
+.stat span{font-size:.85rem;opacity:.8}
+.meter{height:10px;border-radius:5px;background:var(--c);margin-top:6px}
+.tw{overflow-x:auto}
+table{border-collapse:collapse;font-size:.85rem;min-width:620px}
+th,td{padding:6px 8px;border-bottom:1px solid #ffffff22;text-align:center;white-space:nowrap}
+td:first-child,th:first-child{text-align:left}
+td.fav{font-weight:800;color:var(--accent)}
+textarea{width:100%;min-height:120px;background:#0003;color:var(--cream);border:1px solid #ffffff33;border-radius:10px;padding:10px;font:.8rem ui-monospace,monospace}
+.row{display:flex;gap:10px;flex-wrap:wrap;margin-top:10px}
+@media (max-width:560px){.flavs{grid-template-columns:repeat(2,1fr)}}
+@media (prefers-reduced-motion:reduce){*{animation-duration:.01s!important}}
+</style>
+<div id="app"><div id="orbs"></div><header class="top"><div class="brand" id="brand">Mini Présséa × Majestic Ivoire</div><div class="dots" id="dots"></div></header><main id="main"></main><div id="bo" hidden></div></div>
+<script>const POWERS = [
+  {id:'energie', name:"l'Énergie", title:"Pouvoir de l'Énergie", flavor:'Orange', color:'#FF7A1A', text:"Tu ne t'arrêtes jamais ! Ton énergie donne envie à tout le monde de courir, de sauter et de jouer avec toi."},
+  {id:'eclat', name:"l'Éclat", title:"Pouvoir de l'Éclat", flavor:'Ananas', color:'#F5D327', text:"Tu illumines chaque endroit où tu arrives. Ton sourire et ta joie rendent les autres heureux."},
+  {id:'sagesse', name:'la Sagesse', title:'Pouvoir de la Sagesse', flavor:'Pomme', color:'#6CC04A', text:"Tu réfléchis avant d'agir et tu trouves toujours la bonne idée. Tes amis comptent sur toi."},
+  {id:'metamorphose', name:'la Métamorphose', title:'Pouvoir de la Métamorphose', flavor:'Cocktail', color:'#8B5CD6', text:"Curieux comme tu es, tu essaies tout ! Tu peux changer de forme et inventer mille aventures."},
+  {id:'intuition', name:"l'Intuition", title:"Pouvoir de l'Intuition", flavor:'Goyave', color:'#F0617F', text:"Tu ressens ce que les autres ressentent. Tu devines les secrets et tu aides ceux qui en ont besoin."},
+  {id:'bravoure', name:'la Bravoure', title:'Pouvoir de la Bravoure', flavor:'Mangue', color:'#FFB02E', text:"Rien ne te fait peur ! Tu protèges tes amis et tu avances toujours avec un grand cœur."},
+];
+const ORDER = ['energie','eclat','sagesse','metamorphose','intuition','bravoure'];
+const QUESTIONS = [
+  {text:"Aimes-tu courir et bouger tout le temps ?", yes:['energie','bravoure'], no:['sagesse','intuition']},
+  {text:"Aimes-tu être entouré de plein d'amis ?", yes:['eclat','energie'], no:['sagesse','metamorphose']},
+  {text:"Aimes-tu essayer des choses que tu ne connais pas ?", yes:['metamorphose','bravoure'], no:['sagesse','intuition']},
+  {text:"Devines-tu quand un ami est triste, même sans qu'il parle ?", yes:['intuition','eclat'], no:['energie','metamorphose']},
+];
+function attribute(answers, flavor){
+  const m = answers.reduce((n,a,i)=>n+(a?1<<i:0),0); // numéro de combinaison 0-15 // answers: array of 4 booleans (true=Oui)
+  const pts = {}; ORDER.forEach(p=>pts[p]=0);
+  answers.forEach((a,i)=>QUESTIONS[i][a?'yes':'no'].forEach(p=>pts[p]++));
+  const ranked = ORDER.slice().sort((a,b)=>pts[b]-pts[a]||(ORDER.indexOf(a)+m)%6-(ORDER.indexOf(b)+m)%6);
+  const compat = ranked.slice(0,4);
+  const fav = POWERS.find(p=>p.flavor===flavor).id;
+  return compat.includes(fav) ? fav : compat[0];
+}
+
+const ICONS={
+ energie:'<path d="M56 6 20 56h24l-6 38 42-54H56z" fill="#fff"/>',
+ eclat:'<circle cx="50" cy="50" r="19" fill="#fff"/><g stroke="#fff" stroke-width="7" stroke-linecap="round"><path d="M50 8v12M50 80v12M8 50h12M80 50h12M20 20l9 9M71 71l9 9M80 20l-9 9M29 71l-9 9"/></g>',
+ sagesse:'<path d="M18 82C16 42 44 16 86 14c0 42-26 72-68 68z" fill="#fff"/><path d="M18 82 56 44" stroke="#0003" stroke-width="5" stroke-linecap="round"/>',
+ metamorphose:'<path d="M50 50a6 6 0 1 1 6 6 14 14 0 1 1-14-14 24 24 0 1 1 24 24 34 34 0 1 1-34-34" fill="none" stroke="#fff" stroke-width="8" stroke-linecap="round"/>',
+ intuition:'<path d="M6 50Q50 8 94 50 50 92 6 50z" fill="#fff"/><circle cx="50" cy="50" r="15" fill="#0006"/><circle cx="55" cy="45" r="5" fill="#fff"/>',
+ bravoure:'<path d="M50 6 88 20v30c0 26-19 40-38 46C31 90 12 76 12 50V20z" fill="#fff"/><path d="M50 26v50M30 44h40" stroke="#0004" stroke-width="7" stroke-linecap="round"/>'
+};
+const icon=id=>`<svg viewBox="0 0 100 100" aria-hidden="true">${ICONS[id]}</svg>`;
+const $=s=>document.querySelector(s);
+const main=$('#main'),dots=$('#dots');
+const PIN='2026';
+// ---- stockage (repli en mémoire si indisponible)
+const mem={};
+const store={get(k,d){try{const v=localStorage.getItem(k);return v==null?(k in mem?mem[k]:d):JSON.parse(v)}catch(e){return k in mem?mem[k]:d}},
+ set(k,v){mem[k]=v;try{localStorage.setItem(k,JSON.stringify(v))}catch(e){}}};
+const log=()=>store.get('ttp_log',[]);
+const starts=()=>store.get('ttp_starts',0);
+// ---- état
+let st={step:0,flavor:null,answers:[]},idle=null,timers=[];
+function later(fn,ms){const t=setTimeout(fn,ms);timers.push(t);return t}
+function clearTimers(){timers.forEach(clearTimeout);timers=[]}
+function resetIdle(){clearTimeout(idle);idle=setTimeout(()=>{if(!$('#bo').hidden)return;go('home')},60000)}
+['pointerdown','keydown'].forEach(e=>document.addEventListener(e,resetIdle));
+function setDots(n){dots.innerHTML=[0,1,2,3,4].map(i=>`<b class="${i<n?'done':i===n?'on':''}"></b>`).join('');dots.style.visibility=n<0?'hidden':'visible'}
+function go(name){clearTimers();resetIdle();views[name]()}
+const views={
+ home(){
+  st={step:0,flavor:null,answers:[]};setDots(-1);
+  main.innerHTML=`<section class="screen"><h1>Trouve ton <em>pouvoir</em> !</h1><p class="lead">Réponds à 5 petites questions et découvre le pouvoir qui dort en toi.</p><button class="btn" id="go">Je commence</button></section>`;
+  $('#go').onclick=()=>{store.set('ttp_starts',starts()+1);go('flavor')};
+ },
+ flavor(){
+  setDots(0);
+  main.innerHTML=`<section class="screen"><h2>Quel est ton parfum Mini Présséa préféré ?</h2><div class="flavs">${POWERS.map(p=>`<button class="flav" style="--c:${p.color}" data-f="${p.flavor}"><svg viewBox="0 0 100 100" aria-hidden="true"><circle cx="50" cy="56" r="34" fill="#fff6"/><path d="M50 22c0-10 8-14 14-14" stroke="#17123A" stroke-width="7" stroke-linecap="round" fill="none"/></svg>${p.flavor}</button>`).join('')}</div></section>`;
+  main.querySelectorAll('.flav').forEach(b=>b.onclick=()=>{st.flavor=b.dataset.f;st.step=1;go('q')});
+ },
+ q(){
+  const i=st.step-1;setDots(st.step);
+  main.innerHTML=`<section class="screen"><h2>${QUESTIONS[i].text}</h2><div class="yn"><button class="btn yes" data-a="1">Oui</button><button class="btn no" data-a="0">Non</button></div></section>`;
+  main.querySelectorAll('.yn .btn').forEach(b=>b.onclick=()=>{st.answers.push(b.dataset.a==='1');if(st.step<4){st.step++;go('q')}else go('wait')});
+ },
+ wait(){
+  setDots(5);
+  const msgs=['Ton pouvoir se réveille…','Les parfums se mélangent…','Il est presque là !'];
+  main.innerHTML=`<section class="screen"><div class="suspense">${POWERS.map((p,k)=>`<i style="--c:${p.color};--d:${-k*.27}s"></i>`).join('')}</div><h2 id="msg">${msgs[0]}</h2></section>`;
+  later(()=>$('#msg')&&($('#msg').textContent=msgs[1]),1300);
+  later(()=>$('#msg')&&($('#msg').textContent=msgs[2]),2600);
+  later(()=>go('result'),3800);
+ },
+ result(){
+  setDots(5);
+  const pid=attribute(st.answers,st.flavor),p=POWERS.find(x=>x.id===pid);
+  const n=log().length+1;
+  const code=p.flavor.slice(0,2).toUpperCase()+'-'+String(n).padStart(3,'0');
+  store.set('ttp_log',log().concat([{t:new Date().toISOString(),flavor:st.flavor,answers:st.answers.map(a=>a?1:0).join(''),power:pid,code}]));
+  const same=p.flavor===st.flavor;
+  main.innerHTML=`<section class="screen reveal" style="--pc:${p.color}"><div class="emblem">${icon(pid)}</div><h2>Tu as le <span class="pname">${p.title}</span> !</h2><p class="lead">${p.text}</p><div class="flavtag"><i></i>${same?`Ton parfum préféré, ${p.flavor}, est le parfum de ce pouvoir !`:`Ton pouvoir se révèle avec ${p.flavor}`}</div><div class="code" aria-label="Code pour l'hôtesse">${code}</div><p class="small">Montre ce code à l'hôtesse pour recevoir ton parfum Mini Présséa.</p><button class="btn ghost" id="again">Recommencer</button></section>`;
+  $('#again').onclick=()=>go('home');
+ }
+};
+// ---- orbes de fond
+$('#orbs').innerHTML=POWERS.map((p,i)=>`<i style="background:${p.color};width:${120+i*22}px;height:${120+i*22}px;left:${(i*17+6)%90}%;top:${(i*29+8)%80}%;animation-delay:${-i*2.3}s"></i>`).join('');
+// ---- back-office (appui long sur le logo, code 2026)
+let pinBuf='',lp=null;
+const brand=$('#brand');
+brand.addEventListener('pointerdown',()=>{lp=setTimeout(openPin,1500)});
+['pointerup','pointerleave','pointercancel'].forEach(e=>brand.addEventListener(e,()=>clearTimeout(lp)));
+function openPin(){pinBuf='';const bo=$('#bo');bo.hidden=false;
+ bo.innerHTML=`<div style="max-width:420px;margin:8vh auto 0;text-align:center"><h2 style="text-align:center">Back-office</h2><div class="pinshow" id="ps"></div><div class="pin">${[1,2,3,4,5,6,7,8,9,'×',0,'OK'].map(k=>`<button data-k="${k}">${k}</button>`).join('')}</div><p class="small" style="margin-top:20px"><button class="btn ghost" id="cl">Fermer</button></p></div>`;
+ $('#cl').onclick=closeBo;
+ bo.querySelectorAll('.pin button').forEach(b=>b.onclick=()=>{const k=b.dataset.k;if(k==='×')pinBuf='';else if(k==='OK'){pinBuf===PIN?panel():(pinBuf='')}else if(pinBuf.length<4)pinBuf+=k;$('#ps')&&($('#ps').textContent='•'.repeat(pinBuf.length))});
+}
+function closeBo(){$('#bo').hidden=true;$('#bo').innerHTML=''}
+function csv(){return ['date;parfum;reponses;pouvoir;code'].concat(log().map(r=>[r.t,r.flavor,r.answers,r.power,r.code].join(';'))).join('\n')}
+let confirmReset=false;
+function panel(){
+ const L=log(),S=starts(),by={},bf={};
+ POWERS.forEach(p=>{by[p.id]=0;bf[p.flavor]=0});L.forEach(r=>{by[r.power]++;bf[r.flavor]++});
+ const max=Math.max(1,...Object.values(by));
+ const rate=S?Math.round(100*L.length/S):0;
+ const match=L.length?Math.round(100*L.filter(r=>POWERS.find(p=>p.id===r.power).flavor===r.flavor).length/L.length):0;
+ const rows=[];for(let m=0;m<16;m++){const a=[0,1,2,3].map(i=>!!(m>>i&1));rows.push(`<tr><td>${a.map(x=>x?'O':'N').join(' ')}</td>${POWERS.map(p=>{const r=attribute(a,p.flavor);return `<td class="${r===p.id?'fav':''}">${POWERS.find(x=>x.id===r).title.replace('Pouvoir de ','').replace(/^(l'|la )/,'')}</td>`}).join('')}</tr>`)}
+ $('#bo').innerHTML=`<div style="max-width:1000px;margin:0 auto"><div class="row" style="justify-content:space-between;align-items:center"><h2>Back-office</h2><button class="btn ghost" id="cl">Fermer</button></div>
+ <div class="grid"><div class="stat"><b>${L.length}</b><span>pouvoirs découverts</span></div><div class="stat"><b>${S}</b><span>parcours démarrés</span></div><div class="stat"><b>${rate} %</b><span>taux de complétion</span></div><div class="stat"><b>${match} %</b><span>pouvoir = parfum préféré</span></div></div>
+ <h3>Répartition par pouvoir</h3><div class="grid">${POWERS.map(p=>`<div class="stat"><b>${by[p.id]}</b><span>${p.title}</span><div class="meter" style="--c:${p.color};width:${Math.round(100*by[p.id]/max)}%"></div></div>`).join('')}</div>
+ <h3>Répartition par parfum préféré</h3><div class="grid">${POWERS.map(p=>`<div class="stat"><b>${bf[p.flavor]}</b><span>${p.flavor}</span><div class="meter" style="--c:${p.color};width:${Math.round(100*bf[p.flavor]/Math.max(1,...Object.values(bf)))}%"></div></div>`).join('')}</div>
+ <h3>Matrice des résultats (16 combinaisons × 6 parfums)</h3><p class="small">O = Oui, N = Non, dans l'ordre des questions 1 à 4. En orange : le pouvoir du parfum choisi est attribué.</p><div class="tw"><table><thead><tr><th>Réponses</th>${POWERS.map(p=>`<th>${p.flavor}</th>`).join('')}</tr></thead><tbody>${rows.join('')}</tbody></table></div>
+ <h3>Export CSV</h3><textarea id="csv" readonly>${csv()}</textarea><div class="row"><button class="btn ghost" id="cp">Copier</button><button class="btn ghost" id="rs">${confirmReset?'Confirmer la remise à zéro':'Remettre les statistiques à zéro'}</button></div></div>`;
+ $('#cl').onclick=closeBo;
+ $('#cp').onclick=()=>{const t=$('#csv');t.select();(navigator.clipboard?navigator.clipboard.writeText(t.value):Promise.reject()).then(()=>{$('#cp').textContent='Copié'}).catch(()=>{$('#cp').textContent='Sélectionné, copie avec Ctrl+C'})};
+ $('#rs').onclick=()=>{if(!confirmReset){confirmReset=true;panel();return}confirmReset=false;store.set('ttp_log',[]);store.set('ttp_starts',0);panel()};
+}
+go('home');
+</script>
+</body></html>
